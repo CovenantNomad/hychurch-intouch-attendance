@@ -1,24 +1,25 @@
-import logo from './logo.svg';
-import './App.css';
+import { QueryClient, QueryClientProvider } from "react-query";
+import { Route, Routes } from "react-router-dom";
+import AttendanceMain from "./pages/attendance/AttendanceMain";
+import AttendanceRegister from "./pages/attendance/AttendanceRegister";
+import Onboarding from "./pages/auth/Onboarding";
+import SignIn from "./pages/auth/SignIn";
+import SignUp from "./pages/auth/SignUp";
+
+const queryClient = new QueryClient()
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <QueryClientProvider client={queryClient}>
+      <Routes>
+        <Route path="/" element={<Onboarding />} />
+        <Route path="/signin" element={<SignIn />} />
+        <Route path="/signup" element={<SignUp />} />
+        <Route path="/attendance" element={<AttendanceMain />} />
+        <Route path="/attendance/register" element={<AttendanceRegister />} />
+        <Route path="/attendance/edit" element={<AttendanceRegister />} />
+      </Routes>
+    </QueryClientProvider>
   );
 }
 
