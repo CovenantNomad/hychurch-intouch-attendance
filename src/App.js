@@ -1,24 +1,20 @@
 import { QueryClient, QueryClientProvider } from "react-query";
-import { Route, Routes } from "react-router-dom";
-import AttendanceMain from "./pages/attendance/AttendanceMain";
-import AttendanceRegister from "./pages/attendance/AttendanceRegister";
-import Onboarding from "./pages/auth/Onboarding";
-import SignIn from "./pages/auth/SignIn";
-import SignUp from "./pages/auth/SignUp";
+import { BrowserRouter } from "react-router-dom";
+import { useRecoilValue } from "recoil";
+import LoggedInRouter from "./routers/LoggedInRouter";
+import LoggedOutRouter from "./routers/LoggedOutRouter";
+import { authState } from "./stores/authState";
 
 const queryClient = new QueryClient()
 
 function App() {
+  const { isLoggedIn } = useRecoilValue(authState)
+
   return (
     <QueryClientProvider client={queryClient}>
-      <Routes>
-        <Route path="/" element={<Onboarding />} />
-        <Route path="/signin" element={<SignIn />} />
-        <Route path="/signup" element={<SignUp />} />
-        <Route path="/attendance" element={<AttendanceMain />} />
-        <Route path="/attendance/register" element={<AttendanceRegister />} />
-        <Route path="/attendance/edit" element={<AttendanceRegister />} />
-      </Routes>
+      <BrowserRouter>
+        {isLoggedIn ? <LoggedInRouter /> : <LoggedOutRouter />}
+      </BrowserRouter>
     </QueryClientProvider>
   );
 }

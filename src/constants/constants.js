@@ -1,0 +1,1 @@
+export const ATTENDANCE_AUTH_TOKEN = "attendance_auth_token"
