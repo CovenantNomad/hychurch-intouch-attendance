@@ -2,6 +2,7 @@ import React from 'react';
 import { useForm } from 'react-hook-form';
 import { useMutation } from 'react-query';
 import { Link } from 'react-router-dom';
+import { constSelector } from 'recoil';
 import { createUserRequest } from '../../api/auth/createUser';
 // components
 import SubmitButton from '../../components/atoms/buttons/SubmitButton';
@@ -10,14 +11,18 @@ import AuthHero from '../../components/blocks/heros/AuthHero';
 import AuthNavbar from '../../components/blocks/navbars/AuthNavbar';
 
 const SignUp = () => {
-  const createUser = useMutation(() => createUserRequest())
-  const {} = useForm()
-  
+  const createUser = useMutation(({name,phone,password,passwordConfirm,authenticationNumber}) => createUserRequest(name,phone,password,passwordConfirm,authenticationNumber))
+  const {register, handleSubmit} = useForm()
+
+  const onSubmit = async(data) =>{
+    createUser.mutate(data)
+  }
+
   return (
     <AuthContainer>
       <AuthNavbar />
       <AuthHero />
-      <form>
+      <form onSubmit={handleSubmit(onSubmit)}>
         <div>
           <label 
             htmlFor='name'
@@ -28,6 +33,7 @@ const SignUp = () => {
             name='name'
             type="text"
             className="mt-1 border border-gray-300 focus:ring-blue-500 focus:border-blue-500 block w-full shadow-sm rounded-md sm:text-sm"
+            {...register("name")}
           />
           {/* {errors.name && <p className='mt-1 text-red-600'>{errors.name.message}</p>} */}
         </div>
@@ -42,6 +48,7 @@ const SignUp = () => {
             name='phone'
             type="text"
             className="mt-1 border border-gray-300 focus:ring-blue-500 focus:border-blue-500 block w-full shadow-sm rounded-md sm:text-sm"
+            {...register("phone",{required:"번호를 정확히 입력하시오"})}
           />
           {/* {errors.phone && <p className='mt-1 text-red-600'>{errors.phone.message}</p>} */}
         </div>
@@ -56,6 +63,7 @@ const SignUp = () => {
             name='password'
             type="text"
             className="mt-1 border border-gray-300 focus:ring-blue-500 focus:border-blue-500 block w-full shadow-sm rounded-md sm:text-sm"
+            {...register("password")}
           />
           {/* {errors.password && <p className='mt-1 text-red-600'>{errors.password.message}</p>} */}
         </div>
@@ -84,6 +92,7 @@ const SignUp = () => {
             name='authenticationNumber'
             type="text"
             className="mt-1 border border-gray-300 focus:ring-blue-500 focus:border-blue-500 block w-full shadow-sm rounded-md sm:text-sm"
+            {...register("authenticationNumber")}
           />
           {/* {errors.authenticationNumber && <p className='mt-1 text-red-600'>{errors.authenticationNumber.message}</p>} */}
         </div>
