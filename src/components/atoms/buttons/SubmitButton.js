@@ -1,12 +1,13 @@
 import React from 'react';
+import Spinner from '../Spinner/Spinner';
 
-const SubmitButton = ({ label }) => {
+const SubmitButton = ({ label, isLoading }) => {
   return (
     <button 
       type="submit"
-      className='py-2 px-4 w-full border border-transparent shadow-md rounded-md text-white text-sm font-medium bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500'
+      className='py-3 px-4 w-full border border-transparent shadow-md rounded-lg text-white text-sm font-medium bg-black focus:outline-none'
     >
-      {label}
+      {isLoading ? <Spinner size="sm" color="blue" /> : label}
     </button>
   );
 }

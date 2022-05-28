@@ -1,0 +1,1 @@
+export const ENDPOINT = "http://hychurch.duckdns.org:3000/graphql";

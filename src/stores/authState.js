@@ -1,10 +1,11 @@
 import { atom } from "recoil";
-import { ATTENDANCE_AUTH_TOKEN } from "../constants/constants";
+import { INTOUCH_ATTENDANCE_ACCESS_TOKEN } from "../constants/constants";
 
 export const authState = atom({
   key: 'authState',
   default: {
-    isLoggedIn: Boolean(localStorage.getItem(ATTENDANCE_AUTH_TOKEN)),
-    authToken: null
+    isLoggedIn: Boolean(localStorage.getItem(INTOUCH_ATTENDANCE_ACCESS_TOKEN)),
+    accessToken: localStorage.getItem(INTOUCH_ATTENDANCE_ACCESS_TOKEN) || null,
+    user: null
   }
 })

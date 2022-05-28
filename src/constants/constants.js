@@ -1,1 +1,2 @@
-export const ATTENDANCE_AUTH_TOKEN = "attendance_auth_token"
+export const INTOUCH_ATTENDANCE_ACCESS_TOKEN = "intouch_attendance_access_token"
+export const INTOUCH_ATTENDANCE_SAVED_MOBILE = "intouch_attendance_saved_mobile"
